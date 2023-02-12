@@ -1,4 +1,4 @@
-# PS Minimap Gen v1.0
+# PS Minimap Gen v1.1
 
 Generates a clone of ingame fixed minimap from raw PS2 LOD0 map tiles and puts it on a transparent 1080p canvas.
 
