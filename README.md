@@ -19,9 +19,11 @@ Works on windows & linux.
 
 1. Extract .zip somewhere
 2. Add LOD0 tiles for each continent to their respective directory in map_tiles (should be 1024 per large continent)
-3. Open program directory in terminal
-4. Run `python3 minimap-gen.py`
-5. Collect your files in output
+3. Add a .ttf file with font to program directory (for minimap labels)
+4. Rename .ttf file to mapfont.ttf
+5. Open program directory in terminal
+6. Run `python3 minimap-gen.py`
+7. Collect your files in output
 
 ## Demystification
 
