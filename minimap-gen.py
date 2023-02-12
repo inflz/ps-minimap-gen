@@ -8,8 +8,10 @@
 # - z axis (W/E ingame) = x axis here
 #
 
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 from os import path, getcwd
+
+FONT_NAME = "mapfont.ttf"
 
 # Function to determine tile filename from tile coordinates and selected continent
 def tile_name(contstr: str, x_tile: int, y_tile: int, tilecount: int):
@@ -69,6 +71,23 @@ loc_x = int(input(f"Enter /loc z positon (int -{max_coord} to +{max_coord}): "))
 while not (loc_x >= -max_coord and loc_x <= max_coord):
     print(f"Error: invalid selection ({loc_x})!")
     loc_x = int(input(f"Enter /loc z positon (int -{max_coord} to +{max_coord}): "))
+
+print("-"*CONSOLE_WIDTH)
+border = False
+border_sel = "x"
+border_sel = str(input("Add border? (y/n): "))
+while not (border_sel == "y" or border_sel == "n"):
+    print(f"Error: invalid selection ({border_sel})!")
+    border_sel = str(input("Add border? (y/n): "))
+
+if (border_sel == "y"):
+    border = True
+
+print("-"*CONSOLE_WIDTH)
+border_text = ""
+
+if (border):
+    border_text = str(input("Enter map border text (base name): "))
 
 print("-"*CONSOLE_WIDTH)
 
@@ -133,6 +152,30 @@ canvas1080p_small.paste(minimap_small, (29, 782))
 fname_large = f"{cont_string}_LMM_{loc_y}x_{loc_x}z.png"
 fname_small = f"{cont_string}_SMM_{loc_y}x_{loc_x}z.png"
 
+if border:
+    border1080p_small = Image.open(path.join(getcwd(),"SMM_border.png"))
+    canvas1080p_small = Image.alpha_composite(canvas1080p_small, border1080p_small)
+    border1080p_small.close()
+    draw = ImageDraw.Draw(canvas1080p_small)
+    font = ImageFont.truetype(path.join(getcwd(),FONT_NAME), 12)
+    bbox = font.getsize(border_text)
+    center_x = 158
+    center_y = 770
+    x = center_x - bbox[0] / 2
+    y = center_y - bbox[1] / 2
+    draw.text((x, y), border_text, font=font, fill=(255, 255, 255, 255))
+
+    border1080p = Image.open(path.join(getcwd(),"LMM_border.png"))
+    canvas1080p = Image.alpha_composite(canvas1080p, border1080p)
+    border1080p.close()
+    draw = ImageDraw.Draw(canvas1080p)
+    font = ImageFont.truetype(path.join(getcwd(),FONT_NAME), 12)
+    bbox = font.getsize(border_text)
+    center_x = 255
+    center_y = 577
+    x = center_x - bbox[0] / 2
+    y = center_y - bbox[1] / 2
+    draw.text((x, y), border_text, font=font, fill=(255, 255, 255, 255))
 
 canvas1080p.save(path.join(getcwd(), "output", fname_large))
 canvas1080p_small.save(path.join(getcwd(), "output", fname_small))
