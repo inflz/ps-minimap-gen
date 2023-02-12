@@ -27,7 +27,7 @@ def tile_name(contstr: str, x_tile: int, y_tile: int, tilecount: int):
 # Banner
 CONSOLE_WIDTH = 50
 print("#"*CONSOLE_WIDTH)
-print("#    P S    M I N I M A P    G E N    v 1 . 0    #")
+print("#    P S    M I N I M A P    G E N    v 1 . 1    #")
 print("#"*CONSOLE_WIDTH)
 
 # Collect params (continent selection)
